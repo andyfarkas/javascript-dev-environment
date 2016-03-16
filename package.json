@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "webpack-dev-server --progress --profile --colors --hot",
     "build": "webpack --progress --profile --colors",
-    "dev": "webpack-dev-server --progress --profile --colors --hot"
+    "build-prod": "NODE_ENV=production webpack -p webpack --progress --profile --colors"
   },
   "author": "",
   "license": "ISC",
