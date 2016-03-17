@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Quote from './components/Quote/Quote.jsx';
+import App from './components/App/App.jsx';
+import { Provider } from 'react-redux';
+import createStore from './store.js';
+
+const store = createStore();
 
 ReactDOM.render(
-  <Quote
-    quote="Hello world"
-    author="Andy"
-  />,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('app')
 );

@@ -1,13 +1,14 @@
 import React from 'react';
 import styles from './Quote.less';
 
-const Quote = ({ quote, author }) => (
+const Quote = ({ quote, author, onNewQuoteClick }) => (
   <div className={styles.box}>
-    <div className={styles.innetBox}>
+    <div>
       <div className={styles.quote}>
         <p>{quote}</p>
       </div>
       <span> - {author}</span>
+      <button onClick={onNewQuoteClick}>Click</button>
     </div>
   </div>
 );
@@ -15,6 +16,7 @@ const Quote = ({ quote, author }) => (
 Quote.propTypes = {
   quote: React.PropTypes.string.isRequired,
   author: React.PropTypes.string.isRequired,
+  onNewQuoteClick: React.PropTypes.func.isRequired,
 };
 
 export default Quote;
