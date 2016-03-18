@@ -53,7 +53,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    quote: state.quote,
+    quote: state.get('quote').toJS(),
   };
 }
 

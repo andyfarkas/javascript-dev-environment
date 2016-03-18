@@ -1,12 +1,9 @@
 
-export default (state, action) => {
-  let newState = Object.assign({}, state);
-  if (action.type === 'FETCH_QUOTE') {
-    newState = {
-      quote: action.quote,
-      author: action.author,
-    };
-  }
+import { reduce } from './../../utils/redux-utils.js';
 
-  return newState;
-};
+export default reduce('FETCH_QUOTE', (state, action) => (
+  state.merge({
+    quote: action.quote,
+    author: action.author,
+  })
+));

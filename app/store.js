@@ -2,16 +2,17 @@ import rootReducer from './reducers/index';
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
+import Immutable from 'immutable';
 import apiMiddleware from './middleware/api.js';
 
 const loggerMiddleware = createLogger();
 
-const initialState = {
+const initialState = Immutable.fromJS({
   quote: {
     quote: 'Hello world.',
     author: 'A developer',
   },
-};
+});
 
 export default () => {
   const store = createStore(rootReducer, initialState, applyMiddleware(
