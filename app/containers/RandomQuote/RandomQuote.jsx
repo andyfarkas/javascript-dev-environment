@@ -1,6 +1,7 @@
 
-import Quote from './../../components/Quote/Quote.jsx';
 import React from 'react';
+import { connect } from 'react-redux';
+import Quote from './../../components/Quote/Quote.jsx';
 import fetchQuote from './../../actions/quote/fetchQuote';
 
 class RandomQuote extends React.Component {
@@ -37,9 +38,24 @@ class RandomQuote extends React.Component {
 }
 
 RandomQuote.propTypes = {
-  dispatch: React.PropTypes.function.isRequired,
+  dispatch: React.PropTypes.func.isRequired,
   quote: React.PropTypes.shape({
     quote: React.PropTypes.string,
     author: React.PropTypes.string,
   }).isRequired,
 };
+
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+  };
+}
+
+function mapStateToProps(state) {
+  return {
+    quote: state.quote,
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RandomQuote);
+

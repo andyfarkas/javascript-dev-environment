@@ -2,7 +2,7 @@ import rootReducer from './reducers/index';
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
-// import apiMiddleware from './middleware/api.js';
+import apiMiddleware from './middleware/api.js';
 
 const loggerMiddleware = createLogger();
 
@@ -15,7 +15,7 @@ const initialState = {
 
 export default () => {
   const store = createStore(rootReducer, initialState, applyMiddleware(
-    // apiMiddleware,
+    apiMiddleware,
     thunkMiddleware, // lets us dispatch() functions
     loggerMiddleware // neat middleware that logs actions
   ));
