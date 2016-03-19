@@ -20,7 +20,7 @@ function errorAction(message) {
   };
 }
 
-export const runApiAction = async (action, getState, next) => {
+export const runApiAction = async (action, next) => {
   if (!action.__api) {
     return next(action);
   }
@@ -54,7 +54,7 @@ export const runApiAction = async (action, getState, next) => {
   }
 };
 
-export default (store) => (next) => async (action) => (
-  runApiAction(action, store.getState, next)
+export default () => (next) => async (action) => (
+  runApiAction(action, next)
 );
 
