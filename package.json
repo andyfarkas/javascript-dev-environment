@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack-dev-server --progress --profile --colors --hot",
     "build": "webpack --progress --profile --colors",
-    "build-prod": "NODE_ENV=production webpack -p webpack --progress --profile --colors",
+    "build:prod": "NODE_ENV=production webpack -p webpack --progress --profile --colors",
     "test": "mocha --compilers js:babel-core/register --recursive --require ./tests.bootstrap.js",
     "test:watch": "npm run test -- --watch"
   },
