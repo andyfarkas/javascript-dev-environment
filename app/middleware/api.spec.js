@@ -1,23 +1,19 @@
 
-import chai, { expect } from 'chai';
+import { expect, spy } from 'chai';
 import fetchMock from 'fetch-mock';
 import mockery from 'mockery';
 
 describe('API middleware', () => {
 
   mockery.registerMock('isomorphic-fetch', fetchMock.fetchMock);
-
-  before(() => {
-    mockery.enable({
-      warnOnReplace: false,
-      warnOnUnregistered: false,
-      useCleanCache: true
-    });
+  mockery.enable({
+    warnOnReplace: false,
+    warnOnUnregistered: false,
   });
 
   afterEach(() => {
     fetchMock.restore();
-  })
+  });
 
   after(() => {
     mockery.disable();
@@ -27,7 +23,7 @@ describe('API middleware', () => {
 
   it('should invoke next() when no __api key found in action', () => {
 
-    const next = chai.spy(() => {});
+    const next = spy(() => {});
     const action = {
       type: 'NON_API_ACTION',
     }
@@ -38,7 +34,7 @@ describe('API middleware', () => {
 
 
   it('should dispatch REQUEST_* action before the actual request', () => {
-    const next = chai.spy(() => {});
+    const next = spy(() => {});
     const expectedRequestAction = {
       type: 'REQUEST_API_ACTION',
     }
