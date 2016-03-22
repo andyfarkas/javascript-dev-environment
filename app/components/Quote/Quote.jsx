@@ -7,8 +7,8 @@ const Quote = ({ quote, author, onNewQuoteClick }) => (
       <div className={styles.quote}>
         <p>{quote}</p>
       </div>
-      <span> - {author}</span>
-      <button onClick={onNewQuoteClick}>Click</button>
+      <span className="author"> - {author}</span>
+      <button className={styles.button} onClick={onNewQuoteClick}>Fetch new quote</button>
     </div>
   </div>
 );

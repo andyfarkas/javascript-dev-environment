@@ -1,4 +1,6 @@
 @import (reference) "~bootstrap/less/bootstrap";
+@import (reference) "~bootstrap/less/buttons";
+@import (reference) "~bootstrap/less/utilities";
 
 .box {
   padding: 5px;
@@ -12,8 +14,20 @@
   font-size: 1.2em;
   font-weight: bold;
   text-align: center;
+  .row;
 }
 
 .innerBox {
   .row;
+}
+
+.author {
+  font-size: 0.8em;
+  .pull-left;
+}
+
+.button {
+  .btn;
+  .btn-primary;
+  .pull-right;
 }
