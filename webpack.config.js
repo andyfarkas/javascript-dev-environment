@@ -28,6 +28,9 @@ module.exports = {
         'style-loader?sourceMap',
         'css-loader?modules&importLoaders=1' +
         '&localIdentName=[name]__[local]___[hash:base64:5]!less-loader'),
+    }, {
+      test: /\.json$/,
+      loader: 'json-loader',
     }],
   },
   plugins: [
@@ -41,4 +44,7 @@ module.exports = {
     contentBase: 'build',
     host: '192.168.33.10',
   },
+  node: {
+    fs: 'empty',
+  }
 };

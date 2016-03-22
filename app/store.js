@@ -18,7 +18,7 @@ export default () => {
   const store = createStore(rootReducer, initialState, applyMiddleware(
     apiMiddleware,
     thunkMiddleware, // lets us dispatch() functions
-    loggerMiddleware // neat middleware that logs actions
+    loggerMiddleware, // neat middleware that logs actions
   ));
 
   if (module.hot) {
