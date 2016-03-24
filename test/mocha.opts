@@ -1,2 +1,2 @@
-./../app/**/*.spec.js
+./**/*.spec.js
 --colors
