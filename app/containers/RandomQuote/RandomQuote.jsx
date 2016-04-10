@@ -1,28 +1,24 @@
-
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect } from './../../store.js';
 import Quote from './../../components/Quote/Quote.jsx';
-import fetchQuote from './../../actions/quote/fetchQuote';
+import { update } from './../../store.js';
 
 class RandomQuote extends React.Component {
 
   constructor(props) {
     super(props);
-    this.handleNewQuoteClick = this.handleNewQuoteClick.bind(this);
-    this._fetchQuote = this._fetchQuote.bind(this);
+    this._handleNewQuoteClick = this._handleNewQuoteClick.bind(this);
   }
 
-  componentDidMount() {
-    this._fetchQuote();
-  }
-
-  _fetchQuote() {
-    const { dispatch } = this.props;
-    dispatch(fetchQuote());
-  }
-
-  handleNewQuoteClick() {
-    this._fetchQuote();
+  _handleNewQuoteClick() {
+    update((state) => (
+      state.merge({
+        quote: {
+          quote: 'changed',
+          author: 'me again',
+        },
+      })
+    ));
   }
 
   render() {
@@ -31,31 +27,23 @@ class RandomQuote extends React.Component {
       <Quote
         quote={quote.quote}
         author={quote.author}
-        onNewQuoteClick={this.handleNewQuoteClick}
+        onNewQuoteClick={this._handleNewQuoteClick}
       />
     );
   }
 }
 
 RandomQuote.propTypes = {
-  dispatch: React.PropTypes.func.isRequired,
   quote: React.PropTypes.shape({
     quote: React.PropTypes.string,
     author: React.PropTypes.string,
   }).isRequired,
 };
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
-}
-
-function mapStateToProps(state) {
+function fetchFromState(state) {
   return {
     quote: state.get('quote').toJS(),
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RandomQuote);
-
+export default connect(fetchFromState, RandomQuote);

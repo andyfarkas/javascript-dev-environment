@@ -1,33 +1,54 @@
-import rootReducer from './reducers/index';
-import { createStore, applyMiddleware } from 'redux';
-import thunkMiddleware from 'redux-thunk';
-import createLogger from 'redux-logger';
-import Immutable from 'immutable';
-import apiMiddleware from './middleware/api.js';
+import React from 'react';
+import { clone } from './utils.js';
+import assert from 'assert';
 
-const loggerMiddleware = createLogger();
+let state;
+const stateChangeListeners = [];
 
-const initialState = Immutable.fromJS({
-  quote: {
-    quote: 'Hello world.',
-    author: 'A developer',
-  },
-});
+export function create(initialState) {
+  state = initialState;
+  return state;
+}
 
-export default () => {
-  const store = createStore(rootReducer, initialState, applyMiddleware(
-    apiMiddleware,
-    thunkMiddleware, // lets us dispatch() functions
-    loggerMiddleware // neat middleware that logs actions
-  ));
+export function update(updaterFunction) {
+  state = updaterFunction(state);
+  stateChangeListeners.forEach((listener) => {
+    listener.handleStateChange(state);
+  });
+}
 
-  if (module.hot) {
-    // Enable Webpack hot module replacement for reducers
-    module.hot.accept('./reducers', () => {
-      const nextRootReducer = require('./reducers/index');
-      store.replaceReducer(nextRootReducer);
-    });
+export function fetch(stateFetcherFunction) {
+  return stateFetcherFunction(state);
+}
+
+
+export function connect(stateFetcher, Component) {
+  let lastProps = null;
+
+  class ConnectedComponent extends React.Component {
+    constructor(props) {
+      super(props);
+      this.handleStateChange = this.handleStateChange.bind(this);
+      stateChangeListeners.push(this);
+    }
+
+    handleStateChange(newState) {
+      const newProps = stateFetcher(newState);
+
+      try {
+        assert.deepEqual(lastProps, newProps);
+      } catch (e) {
+        lastProps = clone(newProps);
+        this.setState(newProps);
+      }
+    }
+
+    render() {
+      const props = stateFetcher(state);
+      return <Component {...props} />;
+    }
   }
 
-  return store;
-};
+  return ConnectedComponent;
+}
+

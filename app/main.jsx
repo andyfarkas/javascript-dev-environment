@@ -1,15 +1,21 @@
 import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App/App.jsx';
-import { Provider } from 'react-redux';
-import createStore from './store.js';
+import RandomQuote from './containers/RandomQuote/RandomQuote.jsx';
+import { create as createStore } from './store.js';
+import Immutable from 'immutable';
 
-const store = createStore();
+createStore(Immutable.fromJS({
+  quote: {
+    quote: 'hello',
+    author: 'me',
+  },
+}));
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <RandomQuote
+    author="me"
+    quaote="what"
+  />,
   document.getElementById('app')
 );
