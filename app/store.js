@@ -10,7 +10,7 @@ export function create(initialState) {
   return state;
 }
 
-export function update(updaterFunction) {
+export function trigger(updaterFunction) {
   state = updaterFunction(state);
   stateChangeListeners.forEach((listener) => {
     listener.handleStateChange(state);

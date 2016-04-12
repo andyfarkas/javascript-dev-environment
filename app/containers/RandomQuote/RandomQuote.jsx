@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from './../../store.js';
 import Quote from './../../components/Quote/Quote.jsx';
-import { update } from './../../store.js';
+import { trigger } from './../../store.js';
+import changeQuote from './../../actions/changeQuote';
 
 class RandomQuote extends React.Component {
 
@@ -11,14 +12,7 @@ class RandomQuote extends React.Component {
   }
 
   _handleNewQuoteClick() {
-    update((state) => (
-      state.merge({
-        quote: {
-          quote: 'changed',
-          author: 'me again',
-        },
-      })
-    ));
+    trigger(changeQuote('changed', 'me again'));
   }
 
   render() {
