@@ -1,7 +1,7 @@
 import React from 'react';
-import { connect } from './../../store.js';
+import { makeStoreAware } from './../../state/storeAware.js';
 import Quote from './../../components/Quote/Quote.jsx';
-import { trigger } from './../../store.js';
+import { trigger } from './../../state/store.js';
 import changeQuote from './../../actions/changeQuote';
 
 class RandomQuote extends React.Component {
@@ -12,6 +12,7 @@ class RandomQuote extends React.Component {
   }
 
   _handleNewQuoteClick() {
+    const { trigger } = this.props;
     trigger(changeQuote('changed', 'me again'));
   }
 
@@ -40,4 +41,4 @@ function fetchFromState(state) {
   };
 }
 
-export default connect(fetchFromState, RandomQuote);
+export default makeStoreAware(fetchFromState, RandomQuote);

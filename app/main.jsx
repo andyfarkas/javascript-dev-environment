@@ -2,10 +2,11 @@ import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import RandomQuote from './containers/RandomQuote/RandomQuote.jsx';
-import { create as createStore } from './store.js';
+import { createStore } from './state/store.js';
 import Immutable from 'immutable';
+import StoreProvider from './state/StoreProvider';
 
-createStore(Immutable.fromJS({
+const store = createStore(Immutable.fromJS({
   quote: {
     quote: 'hello',
     author: 'me',
@@ -13,9 +14,11 @@ createStore(Immutable.fromJS({
 }));
 
 ReactDOM.render(
-  <RandomQuote
-    author="me"
-    quaote="what"
-  />,
+  <StoreProvider store={store}>
+    <RandomQuote
+      author="me"
+      quaote="what"
+    />
+  </StoreProvider>,
   document.getElementById('app')
 );
