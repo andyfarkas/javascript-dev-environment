@@ -8,17 +8,14 @@ import StoreProvider from './state/StoreProvider';
 
 const store = createStore(Immutable.fromJS({
   quote: {
-    quote: 'hello',
-    author: 'me',
+    quote: null,
+    author: null,
   },
 }));
 
 ReactDOM.render(
   <StoreProvider store={store}>
-    <RandomQuote
-      author="me"
-      quaote="what"
-    />
+    <RandomQuote />
   </StoreProvider>,
   document.getElementById('app')
 );

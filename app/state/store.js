@@ -17,7 +17,7 @@ export class Store {
     const self = this;
     this.listeners.forEach((listener) => {
       listener(self.state);
-    })
+    });
   }
 
   getState() {

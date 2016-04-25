@@ -10,7 +10,7 @@ export default class StoreProvider extends React.Component {
   }
 
   getChildContext() {
-    return { store: this.store }
+    return { store: this.store };
   }
 
   render() {
@@ -22,6 +22,7 @@ export default class StoreProvider extends React.Component {
 
 StoreProvider.propTypes = {
   store: React.PropTypes.object.isRequired,
+  children: React.PropTypes.element,
 };
 
 StoreProvider.childContextTypes = {

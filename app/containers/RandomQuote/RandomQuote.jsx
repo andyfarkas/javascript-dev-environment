@@ -1,8 +1,8 @@
 import React from 'react';
 import { makeStoreAware } from './../../state/storeAware.js';
 import Quote from './../../components/Quote/Quote.jsx';
-import { trigger } from './../../state/store.js';
 import changeQuote from './../../actions/changeQuote';
+import fetchQuote from './../../actions/fetchQuote';
 
 class RandomQuote extends React.Component {
 
@@ -11,9 +11,16 @@ class RandomQuote extends React.Component {
     this._handleNewQuoteClick = this._handleNewQuoteClick.bind(this);
   }
 
-  _handleNewQuoteClick() {
+  async componentWillMount() {
     const { trigger } = this.props;
-    trigger(changeQuote('changed', 'me again'));
+    const quote = await fetchQuote();
+    trigger(changeQuote(quote.quote, quote.author));
+  }
+
+  async _handleNewQuoteClick() {
+    const { trigger } = this.props;
+    const quote = await fetchQuote();
+    trigger(changeQuote(quote.quote, quote.author));
   }
 
   render() {
@@ -33,6 +40,7 @@ RandomQuote.propTypes = {
     quote: React.PropTypes.string,
     author: React.PropTypes.string,
   }).isRequired,
+  trigger: React.PropTypes.func,
 };
 
 function fetchFromState(state) {
