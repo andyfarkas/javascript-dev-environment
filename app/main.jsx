@@ -8,8 +8,8 @@ import StoreProvider from './state/StoreProvider';
 
 const store = createStore(Immutable.fromJS({
   quote: {
-    quote: null,
-    author: null,
+    quote: '',
+    author: '',
   },
 }));
 
